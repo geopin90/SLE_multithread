@@ -33,13 +33,13 @@ class Matrix {
   Matrix operator-=(const Matrix& other);
   Matrix operator*=(const Matrix& other);
   Matrix operator*=(const double num);
-  const double& operator()(int i, int j) const;
+  // const double& operator()(int i, int j) const;
   double& operator()(int i, int j);
 
  private:
   bool isEqualSizes(const Matrix& other) const;
   bool isSquareMatrix() const;
-  void allocateMemory(int rows, int cols);
+  void allocateMemory(int row, int col);
   void freeMemory();
   void copyMatrix(double** other_matrix);
 };

@@ -3,7 +3,7 @@
 #include <cmath>
 #include <stdexcept>
 namespace s21 {
-Matrix::Matrix() { allocateMemory(3, 3); }
+Matrix::Matrix() { allocateMemory(3, 4); }
 
 Matrix::Matrix(int rows, int cols) {
   if (rows > 0 && cols > 0) {
@@ -162,13 +162,13 @@ Matrix Matrix::operator*=(const double num) {
   return *this;
 }
 
-const double& Matrix::operator()(int i, int j) const {
-  if (i >= 0 && i < rows && j >= 0 && j < cols) {
-    return matrix[i][j];
-  } else {
-    throw std::out_of_range("Incorrect input, index out of matrix sizes");
-  }
-}
+// const double& Matrix::operator()(int i, int j) const {
+//   if (i >= 0 && i < rows && j >= 0 && j < cols) {
+//     return matrix[i][j];
+//   } else {
+//     throw std::out_of_range("Incorrect input, index out of matrix sizes");
+//   }
+// }
 
 double& Matrix::operator()(int i, int j) {
   if (i >= 0 && i < rows && j >= 0 && j < cols) {
@@ -184,9 +184,9 @@ inline bool Matrix::isEqualSizes(const Matrix& other) const {
 
 inline bool Matrix::isSquareMatrix() const { return (rows == cols); }
 
-void Matrix::allocateMemory(int rows, int cols) {
-  rows = rows;
-  cols = cols;
+void Matrix::allocateMemory(int row, int col) {
+  rows = row;
+  cols = col;
   matrix = new double*[rows];
   for (int i = 0; i < rows; i++) {
     matrix[i] = new double[cols]();

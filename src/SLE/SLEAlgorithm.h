@@ -9,12 +9,19 @@ class SLEAlgorithm {
  private:
   Matrix data_;
   std::vector<double> answer;
-  size_t numCycles;
+  int mSize = 0;
 
  public:
-  std::vector<double> solveGauss();
+  SLEAlgorithm() {}
+  void start(const Matrix& m);
+  const std::vector<double>& getAnswer();
+
+ private:
+  void solveGauss();
+  void oneThread(int row, int col);
   void forwardStep();
   void backStep();
+  void findAnswers(int index);
 };
 
 }  // namespace s21
