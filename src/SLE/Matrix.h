@@ -1,4 +1,9 @@
 #pragma once
+#include <cmath>
+#include <stdexcept>
+#include <iostream>
+#include <iomanip>
+
 namespace s21 {
 class Matrix {
  private:
@@ -33,8 +38,9 @@ class Matrix {
   Matrix operator-=(const Matrix& other);
   Matrix operator*=(const Matrix& other);
   Matrix operator*=(const double num);
-  // const double& operator()(int i, int j) const;
+  const double& operator()(int i, int j) const;
   double& operator()(int i, int j);
+  void print();
 
  private:
   bool isEqualSizes(const Matrix& other) const;

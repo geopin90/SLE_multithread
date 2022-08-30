@@ -1,7 +1,5 @@
 #include "Matrix.h"
 
-#include <cmath>
-#include <stdexcept>
 namespace s21 {
 Matrix::Matrix() { allocateMemory(3, 4); }
 
@@ -162,13 +160,13 @@ Matrix Matrix::operator*=(const double num) {
   return *this;
 }
 
-// const double& Matrix::operator()(int i, int j) const {
-//   if (i >= 0 && i < rows && j >= 0 && j < cols) {
-//     return matrix[i][j];
-//   } else {
-//     throw std::out_of_range("Incorrect input, index out of matrix sizes");
-//   }
-// }
+const double& Matrix::operator()(int i, int j) const {
+  if (i >= 0 && i < rows && j >= 0 && j < cols) {
+    return matrix[i][j];
+  } else {
+    throw std::out_of_range("Incorrect input, index out of matrix sizes");
+  }
+}
 
 double& Matrix::operator()(int i, int j) {
   if (i >= 0 && i < rows && j >= 0 && j < cols) {
@@ -207,4 +205,15 @@ void Matrix::copyMatrix(double** other_matrix) {
     }
   }
 }
+
+void Matrix::print() {
+  std::cout.precision(17);
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      std::cout << std::setprecision (15) << matrix[i][j] << ' ';
+    }
+    std::cout << std::endl;
+  }
+}
+
 }  // namespace s21
