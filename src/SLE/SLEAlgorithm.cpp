@@ -2,9 +2,20 @@
 
 namespace s21 {
 
-void SLEAlgorithm::solveGauss() {
-  for (int i = 0; i < mSize; i++) {
-    oneThread(i, i);
+void SLEAlgorithm::solveGauss(bool isMulti) {
+  if (isMulti) {
+    std::vector<std::thread> allThreads;
+    for (int i = 0; i < mSize; i++) {
+      std::thread myThread(oneThread, this, i, i);
+      allThreads.push_back(std::move(myThread));
+    }
+    for (int j = 0; j < allThreads.size(); j++) {
+      allThreads[j].join();
+    }
+  } else {
+    for (int i = 0; i < mSize; i++) {
+      oneThread(i, i);
+    }
   }
 
   for (int i = mSize - 1; i >= 0; i--) {
@@ -26,14 +37,16 @@ void SLEAlgorithm::oneThread(int row, int col) {
   }
 }
 
+void SLEAlgorithm::mulThread(int row, int col) {
+
+}
+
 void SLEAlgorithm::findAnswers(int index) {
   double result = data_(index, mSize);
   for (int i = index + 1; i < mSize; i++) {
-    // std::cout << "answer[i] = " << answer[i] << std::endl;
     result -= data_(index, i) * answer[i];
   }
   answer[index] = result;
-  //   answer.push_back(result);
 }
 
 void SLEAlgorithm::start(const Matrix& m) {

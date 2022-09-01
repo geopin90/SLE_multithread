@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <thread>
 
 #include "Matrix.h"
 
@@ -17,8 +18,9 @@ class SLEAlgorithm {
   const std::vector<double>& getAnswer();
 
  private:
-  void solveGauss();
+  void solveGauss(bool isMulti = false);
   void oneThread(int row, int col);
+  void mulThread(int row, int col);
   void forwardStep();
   void backStep();
   void findAnswers(int index);
