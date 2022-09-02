@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 
 namespace s21 {
 class Matrix {
@@ -40,6 +41,8 @@ class Matrix {
   Matrix operator*=(const double num);
   const double& operator()(int i, int j) const;
   double& operator()(int i, int j);
+  void loadMatrix(std::ifstream& file);
+  void setSize(int newRows, int newCols);
   void print();
 
  private:

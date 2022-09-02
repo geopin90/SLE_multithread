@@ -74,4 +74,14 @@ void SLEAlgorithm::start(bool isMulti) {
 
 const std::vector<double>& SLEAlgorithm::getAnswer() { return answer; }
 
+void SLEAlgorithm::setFromFile(std::string path) {
+  try {
+    std::ifstream file(path);
+    if (!file.is_open()) throw std::invalid_argument("File can't be opened");
+    data_.loadMatrix(file);
+  } catch (std::exception& e) {
+    throw;
+  }
+}
+
 }  // namespace s21

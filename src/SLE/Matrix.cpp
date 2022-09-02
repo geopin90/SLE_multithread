@@ -192,10 +192,12 @@ void Matrix::allocateMemory(int row, int col) {
 }
 
 void Matrix::freeMemory() {
-  for (int i = 0; i < rows; i++) {
-    delete[] matrix[i];
+  if (!matrix) {
+    for (int i = 0; i < rows; i++) {
+      delete[] matrix[i];
+    }
+    delete[] matrix;
   }
-  delete[] matrix;
 }
 
 void Matrix::copyMatrix(double** other_matrix) {
@@ -205,6 +207,39 @@ void Matrix::copyMatrix(double** other_matrix) {
     }
   }
 }
+
+void Matrix::loadMatrix(std::ifstream& file) {
+  std::string temp = "", tempCol = "";
+  file >> temp;
+  if (isdigit(temp[0]) && temp[0] != '-') {
+    file >> tempCol;
+    if (isdigit(tempCol[0]) && tempCol[0] != '-')
+      setSize(std::stoi(temp), std::stoi(tempCol));
+  } else {
+    throw std::invalid_argument("invalid matrix");
+  }
+  for (int i = 0; i < rows; i++) {
+    for (int j = 0; j < cols; j++) {
+      file >> temp;
+      if (isdigit(temp[0]) || (isdigit(temp[1]) && temp[0] == '-'))
+        matrix[i][j] = std::stod(temp);
+      else
+        throw std::invalid_argument(" file error");
+    }
+  }
+}
+
+void Matrix::setSize(int newRows, int newCols) {
+  if (newRows < 1 || newCols < 1) throw std::invalid_argument("size < 1");
+  if (newRows == rows && newCols == cols) return;
+  Matrix copy(*this);
+  freeMemory();
+  rows = newRows;
+  cols = newCols;
+  allocateMemory(rows, cols);
+  copyMatrix(copy.matrix);
+}
+
 
 void Matrix::print() {
   std::cout.precision(17);

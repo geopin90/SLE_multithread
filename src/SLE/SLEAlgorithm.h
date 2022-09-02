@@ -1,5 +1,10 @@
+#pragma once
+
 #include <iostream>
+#include <fstream>
+#include <exception>
 #include <vector>
+#include <string>
 #include <thread>
 
 #include "Matrix.h"
@@ -17,6 +22,7 @@ class SLEAlgorithm {
   void setMatrix(const Matrix& m);
   void start(bool isMulti = false);
   const std::vector<double>& getAnswer();
+  void setFromFile(std::string path);
 
  private:
   void solveGauss(bool isMulti = false);
