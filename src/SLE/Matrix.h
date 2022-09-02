@@ -42,6 +42,7 @@ class Matrix {
   const double& operator()(int i, int j) const;
   double& operator()(int i, int j);
   void loadMatrix(std::ifstream& file);
+  void createMatrix();
   void setSize(int newRows, int newCols);
   void print();
 

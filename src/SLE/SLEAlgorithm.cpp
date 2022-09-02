@@ -74,11 +74,32 @@ void SLEAlgorithm::start(bool isMulti) {
 
 const std::vector<double>& SLEAlgorithm::getAnswer() { return answer; }
 
+void SLEAlgorithm::printAnswer() {
+  if (answer.size() > 0) {
+    for (unsigned int i = 0; i < answer.size(); i++) {
+      std::cout << answer[i] << ' ';
+    }
+    std::cout << std::endl;
+  } else {
+    throw std::out_of_range("There is no answer");
+  }
+}
+
 void SLEAlgorithm::setFromFile(std::string path) {
   try {
     std::ifstream file(path);
     if (!file.is_open()) throw std::invalid_argument("File can't be opened");
-    data_.loadMatrix(file);
+    Matrix tmp;
+    tmp.loadMatrix(file);
+    setMatrix(tmp);
+  } catch (std::exception& e) {
+    throw;
+  }
+}
+
+void SLEAlgorithm::createMatrix() {
+  try {
+    data_.createMatrix();
   } catch (std::exception& e) {
     throw;
   }

@@ -4,6 +4,7 @@
 #include <vector>
 #include <exception>
 #include "SLEAlgorithm.h"
+#include "../SharedFiles/TimeTest.h"
 
 namespace s21 {
 class SLEConsoleView {

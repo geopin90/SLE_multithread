@@ -22,7 +22,9 @@ class SLEAlgorithm {
   void setMatrix(const Matrix& m);
   void start(bool isMulti = false);
   const std::vector<double>& getAnswer();
+  void printAnswer();
   void setFromFile(std::string path);
+  void createMatrix();
 
  private:
   void solveGauss(bool isMulti = false);

@@ -224,7 +224,28 @@ void Matrix::loadMatrix(std::ifstream& file) {
       if (isdigit(temp[0]) || (isdigit(temp[1]) && temp[0] == '-'))
         matrix[i][j] = std::stod(temp);
       else
-        throw std::invalid_argument(" file error");
+        throw std::invalid_argument("file error");
+    }
+  }
+}
+
+void Matrix::createMatrix() {
+  std::string tempRow = "", tempCol = "";
+  std::cin >> tempRow;
+  std::cin >> tempCol;
+  if (!isdigit(tempRow[0]) || !isdigit(tempCol[0]) || tempRow[0] == '-' || tempCol[0] == '-') {
+    throw std::invalid_argument("invalid size");
+  } else {
+    setSize(std::stoi(tempRow), std::stoi(tempCol));
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        std::string tempEl;
+        std::cin >> tempEl;
+        if (isdigit(tempEl[0]) || (isdigit(tempEl[1]) && tempEl[0] == '-'))
+          matrix[i][j] = std::stod(tempEl);
+        else
+          throw std::invalid_argument("invalid value");
+      }
     }
   }
 }

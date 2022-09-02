@@ -33,7 +33,7 @@ void SLEConsoleView::waitCommand() {
             print(wrongCommand);
         }
     } else {
-        throw std::out_of_range("Wrong number\n");
+        throw std::out_of_range("Wrong command!\n");
     }
 }
 
@@ -53,13 +53,16 @@ void SLEConsoleView::chooseCommand() {
             print(mainMenu);
             break;
         case loadFile:
-        fileLoad();
+            fileLoad();
             break;
         case createMatrix:
+            matrixEnter();
             break;
         case solve:
+            solveMethod();
             break;
         case compare:
+            compareMethod();
             break;
         case exit:
             print(exit);
@@ -84,15 +87,44 @@ void SLEConsoleView::fileLoad() {
 }
 
 void SLEConsoleView::matrixEnter() {
-
+  try {
+    print(createMatrix);
+    gauss.createMatrix();
+    std::cout << "Matrix created successfully\n";
+  } catch (std::exception& e) {
+    throw;
+  }
+  runMenu();
 }
 
 void SLEConsoleView::solveMethod() {
-
+  try {
+    print(solve);
+    gauss.start();
+    gauss.printAnswer();
+  } catch (std::exception& e) {
+    throw;
+  }
+  runMenu();
 }
 
 void SLEConsoleView::compareMethod() {
-
+    try {
+        print(compare);
+        std::string num;
+        std::cin >> num;
+        if (!isNumber(num) || num[0] == '-') {
+            throw std::invalid_argument("wrong num of cycles");
+        } else {
+            print(compResult);
+            s21::TimeTest tt;
+            std::cout << "One thread, ms: " << tt.startest<s21::SLEAlgorithm,std::chrono::milliseconds>(gauss, false, std::stoi(num)) << '\n';
+            std::cout << "Multithread, ms: " << tt.startest<s21::SLEAlgorithm,std::chrono::milliseconds>(gauss, true, std::stoi(num)) << '\n';
+        }
+    } catch (std::exception& e) {
+        throw;
+    }
+    runMenu();
 }
 
 void SLEConsoleView::print(const commands& com) {
